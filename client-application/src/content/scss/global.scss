@@ -1,0 +1,77 @@
+.table {
+  padding: 15px;
+}
+
+.table-with-buttons {
+  height: calc(100vh - 50px);
+  display: grid;
+  grid-template-rows: 90% auto;
+  border: 2px solid var(--primary-color);
+}
+
+.table-buttons-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-top: 2px solid var(--primary-color);
+  width: 100%;
+}
+
+.button-confirm-width {
+  width: 200px;
+}
+
+.button-width {
+  width: 150px;
+}
+
+.dialog-content {
+  display: grid;
+  grid-template-rows: 85% auto;
+  height: 100%;
+  padding: 1rem;
+}
+
+.dialog-body {
+  overflow: auto;
+}
+
+.dialog-button-margin {
+  margin: 10px;
+}
+
+.dialog-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.dialog-form span {
+  padding: 10px;
+}
+
+.dialog-form input {
+  width: 230px;
+  height: 40px;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 100%;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: var(--green-300);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--green-600);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--green-200);
+}

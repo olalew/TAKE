@@ -1,0 +1,144 @@
+.caption {
+  display: flex;
+  justify-content: flex-end;
+  column-gap: 8px;
+  border: none;
+}
+
+.caption-search {
+  display: flex;
+  align-self: center;
+  border: none;
+}
+
+:host ::ng-deep .p-datatable-header {
+  background-color: var(--background-color-darker);
+  border: 1px solid #3a4451 !important;
+  border-bottom: none !important;
+  padding: 0;
+}
+
+.table-name {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  color: var(--primary-color);
+  font-size: 25px;
+  padding: 8px;
+}
+
+:host ::ng-deep .p-scroller-content {
+  min-height: calc(100% - 51px) !important;
+}
+
+:host ::ng-deep .p-datatable-scrollable .p-datatable-tbody>tr>td {
+  color: #76ab81;
+  border-color: #3a4451 !important;
+  font-weight: normal;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+}
+
+:host ::ng-deep .p-datatable-resizable .p-resizable-column:not(.p-frozen-column) {
+  background-color: var(--background-color-darker);
+  border: 1px solid #3a4451;
+}
+
+// :host ::ng-deep .p-datatable-wrapper {
+//   border-bottom: none;
+// }
+
+// :host ::ng-deep .p-inputtext {
+//   border-bottom-right-radius: 0%;
+//   border-bottom-left-radius: 0%;
+//   border: 1px solid #ced4da;
+//   border-bottom: none;
+//   text-align: center;
+//   font-size: 14px;
+//   text-transform: uppercase;
+// }
+
+// .p-input-icon-left {
+
+//   // margin: 0 15px 0 10px;
+//   .pi-search {
+//     // color:var(--bluegray-300);
+//     font-size: 22px;
+//   }
+// }
+
+// .image-fill {
+//   filter: invert(50%);
+//   // fill: red;
+// }
+
+// :host ::ng-deep .p-datatable ::-webkit-scrollbar-thumb {
+//   border-radius: 0;
+// }
+
+// .header {
+//   display: flex;
+//   justify-content: space-between;
+//   background-color: #EFF0F6;
+//   flex-direction: row-reverse;
+// }
+
+// :host ::ng-deep table tr {
+//   background-color: #EFF0F6;
+//   min-height: 50px;
+//   max-height: 50px;
+//   height: 50px;
+// }
+
+// :host ::ng-deep table th:nth-child(odd),
+// :host ::ng-deep table td:nth-child(odd) {
+//   border-left: 1px solid !important;
+//   border-right: 1px solid !important;
+//   border-bottom: 1px solid !important;
+//   border-color: var(--primary-color-lighter) !important;
+// }
+
+// :host ::ng-deep table th:last-child,
+// :host ::ng-deep table td:last-child {
+//   border-right: 1px solid var(--primary-color-lighter) !important;
+// }
+
+// :host ::ng-deep table th:nth-child(even),
+// :host ::ng-deep table td:nth-child(even) {
+//   border-bottom: 1px solid var(--primary-color-lighter) !important;
+// }
+
+// :host ::ng-deep table th {
+//   border-bottom: 1px solid var(--primary-color-lighter) !important;
+//   border-top: 1px solid var(--primary-color-lighter) !important;
+// }
+
+// :host ::ng-deep table th div {
+//   white-space: nowrap;
+//   overflow: hidden;
+//   text-overflow: ellipsis;
+// }
+
+// :host ::ng-deep table tr:last-child {
+//   border-bottom-left-radius: 15px;
+// }
+
+// :host ::ng-deep table tr:last-child td:first-child {
+//   border-bottom-left-radius: 15px;
+// }
+
+// :host ::ng-deep table th:first-child {
+//   border-radius: 25px 0 0 0;
+// }
+
+// :host ::ng-deep table th:last-child {
+//   border-right: 1px solid var(--primary-color-lighter) !important;
+// }
+
+// :host ::ng-deep .p-checkbox .p-checkbox-box {
+//   border-radius: 4px !important;
+//   border: 2px solid var(--primary-color-lighter);
+//   cursor: pointer;
+// }

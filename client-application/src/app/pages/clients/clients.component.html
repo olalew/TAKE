@@ -1,0 +1,8 @@
+<div class="table-with-buttons">
+  <fixtab-table [columns]="columns" [values]="clients" tableName="Klienci"
+    [showTableName]="true" (selected)="onClientSelected($event)"></fixtab-table>
+  <fixtab-table-buttons (addActionEmit)="openClientDialog($event)"
+    (editActionEmit)="openClientDialog($event)" (deleteActionEmit)="openClientDeleteDialog($event)" [isSelectedItem]="selectedClient !== null"></fixtab-table-buttons>
+</div>
+
+<fixtab-delete-dialog *ngIf="openDeleteDialog" (deleteConfirmationEmit)="handleClientDeleteDialog($event)"></fixtab-delete-dialog>

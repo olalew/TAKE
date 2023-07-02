@@ -1,0 +1,19 @@
+:host ::ng-deep .p-dropdown  {
+  width: 230px;
+  height: 40px;
+  text-align: left;
+}
+
+:host ::ng-deep .p-dropdown input {
+  display: none;
+}
+
+.dialog-body {
+  display: flex;
+  flex-direction: column;
+  font-size: 30px;
+  font-weight: bold;
+  label {
+    padding: 10px;
+  }
+}

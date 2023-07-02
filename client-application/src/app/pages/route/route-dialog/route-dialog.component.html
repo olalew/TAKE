@@ -1,0 +1,22 @@
+<div class="dialog-content">
+  <div class="dialog-body">
+    <form #form="ngForm" [formGroup]="routeForm" class="dialog-form">
+      <span class="p-float-label">
+        <input pInputText id="name" formControlName="name" placeholder="Nazwa trasy" [(ngModel)]="route.name" />
+      </span>
+      <span class="p-float-label">
+        <input pInputText id="startingPoint" formControlName="startingPoint" placeholder="Punkt startowy" [(ngModel)]="route.startingPoint"/>
+      </span>
+      <span class="p-float-label">
+        <input pInputText id="endingPoint" formControlName="endingPoint" placeholder="Punkt docelowy" [(ngModel)]="route.endPoint"/>
+      </span>
+      <span class="p-float-label">
+        <input pInputText id="distance" formControlName="distance" placeholder="Odległość[km]" [(ngModel)]="route.distance"/>
+      </span>
+    </form>
+  </div>
+  <div class="dialog-footer">
+    <p-button styleClass="button-width dialog-button-margin" [label]="edit ? 'Edytuj': 'Dodaj' " [disabled]="routeForm.invalid" (onClick)="edit ? onEditRoute() : onCreateRoute()"></p-button>
+    <p-button styleClass="button-width dialog-button-margin" (onClick)="onCloseDialog()">Anuluj</p-button>
+  </div>
+</div>

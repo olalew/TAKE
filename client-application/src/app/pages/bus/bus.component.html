@@ -1,0 +1,9 @@
+<div class="table-with-buttons">
+  <fixtab-table [columns]="columns" [values]="buses" tableName="Autobusy"
+    [showTableName]="true" (selected)="onBusSelected($event)"></fixtab-table>
+  <fixtab-table-buttons (addActionEmit)="openBussDialog($event)"
+    (editActionEmit)="openBussDialog($event)" (deleteActionEmit)="openBussDeleteDialog($event)" [isSelectedItem]="selectedBus !== null"></fixtab-table-buttons>
+</div>
+
+<fixtab-delete-dialog *ngIf="openDeleteDialog" (deleteConfirmationEmit)="handleBussDeleteDialog($event)"></fixtab-delete-dialog>
+

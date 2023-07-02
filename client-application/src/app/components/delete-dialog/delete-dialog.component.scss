@@ -1,0 +1,13 @@
+:host ::ng-deep .p-dialog .p-dialog-footer {
+  display: flex;
+  justify-content: center;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  button {
+    width: 120px;
+  }
+}
+
+:host ::ng-deep .p-dialog .p-dialog-content {
+  border-radius: 0px !important;
+}

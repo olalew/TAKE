@@ -1,0 +1,18 @@
+<div class="login-page">
+  <div class="header">
+    <label for="app-name">FIXTAB</label>
+  </div>
+  <div class="login-card p-4">
+    <div class="card flex justify-content-center">
+      <span class="p-float-label">
+          <input pInputText id="username" [(ngModel)]="user.email" />
+          <label htmlFor="username">Username</label>
+      </span>
+    </div>
+    <span class="p-float-label">
+      <input id="float-input" type="password" pInputText [(ngModel)]="user.password">
+      <label for="float-input">Password</label>
+    </span>
+    <p-button class="p-5" (onClick)="onLogin()" >{{'global.buttons.login' | translate }}</p-button>
+  </div>
+</div>

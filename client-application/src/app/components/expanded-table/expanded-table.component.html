@@ -1,0 +1,64 @@
+<p-table #t [columns]="columns" [value]="values" [selectionMode]="selectMode" [(selection)]="selection"
+       responsiveLayout="scroll" dataKey="employeeId" (onSort)="handleSort($event)"
+       rowExpandMode="single">
+      <ng-template pTemplate="caption">
+        <div class="header">
+          <div class="caption">
+            <span class="p-input-icon-left search-input">
+              <i class="pi pi-search" style="margin-left: 10px; font-weight:bold ;"></i>
+              <input type="text" pInputText placeholder="{{ 'global.placeholder.search' | translate }}"
+                (input)="filterGlobal($any($event.target).value)">
+            </span>
+          </div>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th style="width: 3rem"></th>
+          <th *ngFor="let col of columns" [pSortableColumn]="col.subField ? col.subField : col.field">
+            {{col.header}}
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-columns="columns" let-expanded="expanded">
+        <tr>
+          <td>
+            <button type="button" pButton pRipple [pRowToggler]="rowData"
+              class="p-button-text p-button-rounded p-button-plain"
+              [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+          </td>
+          <td *ngFor="let col of columns" [ngSwitch]="getInstanceType(rowData[col.field] && col.subField ? rowData[col.field][col.subField] : rowData[col.field])">
+            <ng-container *ngIf="col.subField != null; else standard">
+              <div *ngSwitchCase="'DATE'" class="ellipsis">
+                {{(rowData[col.field] ? rowData[col.field][col.subField] : rowData[col.field]) | date: 'yyyy-MM-dd'}}
+              </div>
+              <div *ngSwitchDefault class="ellipsis">
+                {{rowData[col.field] && col.subField ? rowData[col.field][col.subField] : rowData[col.field]}}
+              </div>
+            </ng-container>
+            <ng-template #standard>
+              <div *ngSwitchCase="'DATE'" class="ellipsis">
+                {{rowData[col.field] | date: 'yyyy-MM-dd'}}
+              </div>
+              <div *ngSwitchDefault class="ellipsis">
+                {{rowData[col.field]}}
+              </div>
+            </ng-template>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="rowexpansion" let-employee>
+        <tr>
+            <td colspan="7">
+                <div class="p-3 ticket-list">
+
+                </div>
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td style="text-align: center; justify-content: center;" colspan="5"> {{'table.noData'| translate}} </td>
+      </tr>
+    </ng-template>
+    </p-table>

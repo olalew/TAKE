@@ -1,0 +1,25 @@
+<div class="dialog-content">
+  <div class="dialog-body">
+    <form #form="ngForm" [formGroup]="travelForm" class="dialog-form">
+      <span class="p-float-label">
+        <input pInputText id="name" formControlName="name" placeholder="Nazwa przewozu" [(ngModel)]="travel.name" />
+      </span>
+      <span class="p-float-label">
+        <p-calendar formControlName="date" dateFormat="dd-mm-yy" [(ngModel)]="date" appendTo="body" placeholder="Data przewozu"></p-calendar>
+      </span>
+      <span class="p-float-label">
+        <p-multiSelect formControlName="clients" [options]="clients" [(ngModel)]="selectedClients" optionLabel="fullName" placeholder="Klienci" appendTo="body"></p-multiSelect>
+      </span>
+      <span class="p-float-label">
+        <p-multiSelect formControlName="buses" [options]="buses" [(ngModel)]="selectedBuses" optionLabel="name" placeholder="Autobusy" appendTo="body"></p-multiSelect>
+      </span>
+      <span class="p-float-label">
+        <p-dropdown formControlName="route" [options]="routes" [(ngModel)]="travel.route" optionLabel="name" placeholder="Trasa" appendTo="body"></p-dropdown>
+      </span>
+    </form>
+  </div>
+  <div class="dialog-footer">
+    <p-button styleClass="button-width dialog-button-margin" [label]="edit ? 'Edytuj': 'Dodaj' " [disabled]="travelForm.invalid" (onClick)="edit ? onEditTravel() : onCreateTravel()"></p-button>
+    <p-button styleClass="button-width dialog-button-margin" (onClick)="onCloseDialog()">Anuluj</p-button>
+  </div>
+</div>

@@ -1,0 +1,252 @@
+<p-table #table [value]="lazyValues" [columns]="columns" [selectionMode]="selectMode" [(selection)]="selection"
+  [scrollable]="true" scrollHeight="flex" [lazy]="true" (onLazyLoad)="loadDataOnScroll($event)"
+  [virtualScrollItemSize]="50" [virtualScroll]="true" [rowHover]="true" [totalRecords]="totalRecords"
+  (onSort)="handleSort($event)" [resizableColumns]="true" styleClass="table">
+  <ng-template pTemplate="colgroup" let-columns>
+    <colgroup>
+      <col *ngIf="selectMode === 'checkbox'">
+      <col *ngFor="let col of columns">
+    </colgroup>
+  </ng-template>
+  <ng-template pTemplate="caption" *ngIf="showCaption">
+    <ng-container *ngTemplateOutlet="captionTemplate"></ng-container>
+    <ng-container *ngIf="!captionTemplate">
+      <div class="header">
+        <div class="caption">
+          <span class="p-input-icon-left search-input">
+            <i class="pi pi-search" style="margin: 0.8rem"></i>
+            <input type="text" pInputText placeholder="Szukaj"
+              (input)="filterGlobal($any($event.target).value)" [disabled]="!storagedData || storagedData.length === 0">
+          </span>
+        </div>
+        <ng-container *ngIf="showTableName">
+          <div class="table-name">
+            {{tableName}}
+          </div>
+        </ng-container>
+      </div>
+    </ng-container>
+  </ng-template>
+
+  <ng-template pTemplate="header">
+    <tr>
+      <th *ngIf="selectMode === 'checkbox'" style="max-width: 4rem; height: 51px;">
+          <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+      </th>
+      <th *ngFor="let col of columns" [ngStyle]="col.style" [pSortableColumn]="col.field" pResizableColumn>
+        <div class="ellipsis" pTooltip="{{col.header}}" [tooltipDisabled]="disableTooltip"
+          (mouseenter)="enableTooltipIfNecessary($event)">
+          {{col.header}}
+        </div>
+      </th>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-rowData let-columns="columns">
+    <tr [pSelectableRow]="rowData" [ngSwitch]="bodyTemplate" class="p-selectable-row">
+
+      <ng-container *ngSwitchCase="'IconBodyTemplate'">
+        <td *ngFor="let col of columns" class="ui-resizable-column">
+          <ng-container *ngIf="col.field === 'url'; else standard">
+            <img width="25" height="25" [src]="rowData['url']" />
+          </ng-container>
+          <ng-template #standard>
+            {{rowData[col.field]}}
+          </ng-template>
+        </td>
+      </ng-container>
+      <ng-container *ngSwitchCase="'TagIconBodyTemplate'">
+        <td *ngFor="let col of columns" class="ui-resizable-column">
+          <ng-container *ngIf="col.field === 'url'; else subField">
+            <img class="image-fill" [src]="rowData['url']" type="image/svg+xml" width="20" height="20"/>
+          </ng-container>
+          <ng-template #subField>
+            <ng-container *ngIf="col.subField != null; else standard">
+              <div class="ellipsis" pTooltip="{{rowData[col.field][col.subField]}}"
+                [tooltipDisabled]="disableTooltip" (mouseenter)="enableTooltipIfNecessary($event)">
+                {{rowData[col.field] ? rowData[col.field][col.subField] : rowData[col.field]}}
+              </div>
+            </ng-container>
+            <ng-template #standard>
+              <div class="ellipsis" pTooltip="{{rowData[col.field]}}" [tooltipDisabled]="disableTooltip"
+                (mouseenter)="enableTooltipIfNecessary($event)">
+                {{rowData[col.field]}}
+              </div>
+            </ng-template>
+          </ng-template>
+        </td>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="'BackgroundsBodyTemplate'">
+        <td *ngFor="let col of columns">
+          <ng-container *ngIf="col.field === 'url'; else scaled">
+            <!-- <img height="25" [src]="rowData['url']" (click)="previewImage(rowData['id'])" [id]="rowData['id']" /> -->
+          </ng-container>
+          <ng-template #scaled>
+            <ng-container *ngIf="(col.field === 'scale') && (rowData['scale'] === null); else notScaled">
+              <fa-icon icon="xmark"></fa-icon>
+            </ng-container>
+          </ng-template>
+          <ng-template #notScaled>
+            <ng-container *ngIf="(col.field === 'scale') && (rowData['scale'] !== null); else standard">
+              <fa-icon icon="check"></fa-icon>
+            </ng-container>
+          </ng-template>
+          <ng-template #standard>
+            <div class="ellipsis" pTooltip="{{rowData[col.field]}}" [tooltipDisabled]="disableTooltip"
+              (mouseenter)="enableTooltipIfNecessary($event)">
+              {{rowData[col.field]}}
+            </div>
+          </ng-template>
+        </td>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="'UsersBodyTemplate'">
+        <td *ngFor="let col of columns" class="ui-resizable-column"
+          [ngSwitch]="getInstanceType(rowData[col.field] && col.subField ? rowData[col.field][col.subField] : rowData[col.field])">
+          <ng-container *ngIf="col.field === 'authorities'; else activated">
+            <div class="ellipsis" pTooltip="{{rowData[col.field]}}" [tooltipDisabled]="disableTooltip"
+              (mouseenter)="enableTooltipIfNecessary($event)">
+              {{ rowData[col.field].join(', ') }}
+            </div>
+          </ng-container>
+
+          <ng-template #activated>
+            <ng-container *ngIf="(col.field === 'activated' && rowData['activated'] === true); else deactivated">
+              <fa-icon icon="check"></fa-icon>
+            </ng-container>
+          </ng-template>
+          <ng-template #deactivated>
+            <ng-container *ngIf="(col.field === 'activated' && rowData['activated'] === false); else langKey">
+              <fa-icon icon="xmark"></fa-icon>
+            </ng-container>
+          </ng-template>
+
+          <ng-template #langKey>
+            <ng-container *ngIf="col.field === 'langKey'; else standard">
+              {{ rowData[col.field] }}
+            </ng-container>
+          </ng-template>
+
+          <ng-template #standard>
+            <div *ngSwitchCase="'DATE'" class="ellipsis" pTooltip="{{rowData[col.field] | date: 'yyyy-MM-dd HH:mm:ss'}}"
+              [tooltipDisabled]="disableTooltip" (mouseenter)="enableTooltipIfNecessary($event)">
+              {{rowData[col.field] | date: 'yyyy-MM-dd HH:mm:ss'}}
+            </div>
+            <div *ngSwitchDefault class="ellipsis" pTooltip="{{rowData[col.field]}}" [tooltipDisabled]="disableTooltip"
+              (mouseenter)="enableTooltipIfNecessary($event)">
+              {{rowData[col.field]}}
+            </div>
+          </ng-template>
+        </td>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="'ReportBodyTemplate'">
+        <td *ngFor="let col of columns"
+           class="ui-resizable-column"
+           [ngClass]="col.styleName"
+           [ngSwitch]="getInstanceType(rowData.cells[col.lp].value)">
+          <div
+            *ngSwitchCase="'DATE'"
+            class="ellipsis"
+            pTooltip="{{rowData.cells[col.lp].value| date: 'yyyy-MM-dd HH:mm:ss'}}"
+            [tooltipDisabled]="disableTooltip"
+            (mouseenter)="enableTooltipIfNecessary($event)">
+              {{rowData.cells[col.lp].value | date: "yyyy-MM-dd HH:mm:ss"}}
+          </div>
+          <div *ngSwitchDefault class="ellipsis"
+            pTooltip="{{ rowData.cells[col.lp].value }}"
+            [tooltipDisabled]="disableTooltip"
+            (mouseenter)="enableTooltipIfNecessary($event)">
+              {{ rowData.cells[col.lp].value }}
+          </div>
+        </td>
+      </ng-container>
+
+      <ng-container *ngSwitchCase="'NotificationBodyTemplate'">
+        <td style="max-width: 4rem; height: 50px;">
+            <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+        </td>
+        <td *ngFor="let col of columns" [ngStyle]="col.style"
+          [ngSwitch]="getInstanceType(rowData[col.field] && col.subField ? rowData[col.field][col.subField] : rowData[col.field])">
+          <ng-container *ngIf="(col.field === 'confirmed' && rowData['confirmed'] === true); else notConfirmed">
+            <fa-icon icon="check"></fa-icon>
+          </ng-container>
+
+          <ng-template #notConfirmed>
+            <ng-container *ngIf="(col.field === 'confirmed' && rowData['confirmed'] === false); else standard">
+              <fa-icon icon="xmark"></fa-icon>
+            </ng-container>
+          </ng-template>
+
+          <ng-template #standard>
+            <div *ngSwitchCase="'DATE'" class="ellipsis" pTooltip="{{rowData[col.field] | date: 'yyyy-MM-dd HH:mm:ss'}}"
+              [tooltipDisabled]="disableTooltip" (mouseenter)="enableTooltipIfNecessary($event)">
+              {{rowData[col.field] | date: 'yyyy-MM-dd HH:mm:ss'}}
+            </div>
+            <div *ngSwitchDefault class="ellipsis" pTooltip="{{rowData[col.field]}}" [tooltipDisabled]="disableTooltip"
+              (mouseenter)="enableTooltipIfNecessary($event)">
+              {{rowData[col.field]}}
+            </div>
+          </ng-template>
+        </td>
+      </ng-container>
+
+      <ng-container *ngSwitchDefault>
+        <td *ngFor="let col of columns" class="ui-resizable-column" [ngStyle]="col.style"
+          [ngSwitch]="getInstanceType(rowData[col.field] && col.subField ? rowData[col.field][col.subField] : rowData[col.field])"
+          >
+        <ng-container *ngIf="col.subField != null; else standard">
+          <ng-container *ngSwitchCase="'DATE'">
+            <div *ngIf="showFullDate; else dateOnly" class="ellipsis"
+              pTooltip="{{rowData[col.field] ? rowData[col.field][col.subField] : rowData[col.field] | date: 'yyyy-MM-dd HH:mm:ss'}}"
+              [tooltipDisabled]="disableTooltip" (mouseenter)="enableTooltipIfNecessary($event)">
+              {{rowData[col.field] ? rowData[col.field][col.subField] : rowData[col.field] | date: 'yyyy-MM-dd HH:mm:ss'}}
+            </div>
+            <ng-template #dateOnly>
+              <div class="ellipsis"
+                pTooltip="{{rowData[col.field] ? rowData[col.field][col.subField] : rowData[col.field]}}"
+                [tooltipDisabled]="disableTooltip" (mouseenter)="enableTooltipIfNecessary($event)">
+                {{rowData[col.field] ? rowData[col.field][col.subField] : rowData[col.field] | date: 'yyyy-MM-dd'}}
+              </div>
+            </ng-template>
+          </ng-container>
+            <div *ngSwitchDefault class="ellipsis" pTooltip="{{rowData[col.field][col.subField]}}"
+              [tooltipDisabled]="disableTooltip" (mouseenter)="enableTooltipIfNecessary($event)">
+              {{rowData[col.field] ? rowData[col.field][col.subField] : rowData[col.field]}}
+            </div>
+        </ng-container>
+          <ng-template #standard>
+            <ng-container *ngSwitchCase="'DATE'">
+              <div *ngIf="showFullDate; else standardDateOnly" class="ellipsis" pTooltip="{{rowData[col.field] | date: 'yyyy-MM-dd HH:mm:ss'}}"
+              [tooltipDisabled]="disableTooltip" (mouseenter)="enableTooltipIfNecessary($event)">
+              {{rowData[col.field] | date: 'yyyy-MM-dd HH:mm:ss'}}
+            </div>
+            </ng-container>
+            <ng-template #standardDateOnly>
+              <div class="ellipsis"
+                pTooltip="{{rowData[col.field][col.subField] ? rowData[col.field][col.subField] : rowData[col.field]}}"
+                [tooltipDisabled]="disableTooltip" (mouseenter)="enableTooltipIfNecessary($event)">
+                {{rowData[col.field][col.subField] ? rowData[col.field][col.subField] : rowData[col.field] | date: 'yyyy-MM-dd'}}
+              </div>
+            </ng-template>
+            <div *ngSwitchDefault class="ellipsis" pTooltip="{{rowData[col.field]}}" [tooltipDisabled]="disableTooltip"
+              (mouseenter)="enableTooltipIfNecessary($event)">
+              {{rowData[col.field]}}
+            </div>
+          </ng-template>
+        </td>
+      </ng-container>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="footer" let-columns>
+    <ng-container *ngIf="values.length === 0">
+      <tr [ngSwitch]="footerTemplate">
+        <!-- <td *ngSwitchDefault [attr.colspan]="columns.length" style="text-align: center; justify-content: center;">
+          {{ 'table.noData' | translate }}
+        </td> -->
+      </tr>
+    </ng-container>
+  </ng-template>
+</p-table>

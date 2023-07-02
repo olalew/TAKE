@@ -1,0 +1,19 @@
+<div class="dialog-content">
+  <div class="dialog-body">
+    <form #form="ngForm" [formGroup]="busForm" class="dialog-form">
+      <span class="p-float-label">
+        <input pInputText id="name" formControlName="name" placeholder="Nazwa" [(ngModel)]="bus.name"/>
+      </span>
+      <span class="p-float-label">
+        <input pInputText id="registrationNumber" formControlName="registrationNumber" placeholder="Numer rejestracyjny" [(ngModel)]="bus.registrationNumber"/>
+      </span>
+      <span class="p-float-label">
+        <input pInputText id="places" formControlName="places" placeholder="Miejsca" [(ngModel)]="bus.places"/>
+      </span>
+    </form>
+  </div>
+  <div class="dialog-footer">
+    <p-button styleClass="button-width dialog-button-margin" [label]="edit ? 'Edytuj': 'Dodaj' " [disabled]="busForm.invalid" (onClick)="edit ? onEditBus() :onCreateBus()"></p-button>
+    <p-button styleClass="button-width dialog-button-margin" (onClick)="onCloseDialog()">Anuluj</p-button>
+  </div>
+</div>

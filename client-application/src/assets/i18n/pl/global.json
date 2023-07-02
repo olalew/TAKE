@@ -1,0 +1,11 @@
+{
+  "global": {
+    "buttons": {
+      "login": "Zaloguj",
+      "save": "Zapisz",
+      "add": "Dodaj",
+      "edit": "Edytuj",
+      "delete": "Usuń"
+    }
+  }
+}

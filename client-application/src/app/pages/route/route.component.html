@@ -1,0 +1,9 @@
+<div class="table-with-buttons">
+  <fixtab-table [columns]="columns" [values]="routes" tableName="Trasy" [showCaption]="true"
+    [showTableName]="true" (selected)="onRouteSelected($event)"></fixtab-table>
+  <fixtab-table-buttons (addActionEmit)="openRouteDialog($event)"
+    (editActionEmit)="openRouteDialog($event)" (deleteActionEmit)="openRouteDeleteDialog($event)" [isSelectedItem]="selectedRoute !== null"></fixtab-table-buttons>
+</div>
+
+<fixtab-delete-dialog *ngIf="openDeleteDialog" (deleteConfirmationEmit)="handleRouteDeleteDialog($event)"></fixtab-delete-dialog>
+

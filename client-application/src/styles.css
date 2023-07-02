@@ -1,0 +1,12 @@
+/* You can add global styles to this file, and also import other style files */
+/* @import '../node_modules/primeng/resources/themes/bootstrap4-dark-purple/theme.css'; */
+@import '../node_modules/primeng/resources/themes/vela-green/theme.css';
+@import './content/scss/primeng-theme.scss';
+@import './content/scss/global.scss';
+@import '../node_modules/primeflex/primeflex.css';
+@import "../node_modules/font-awesome/css/font-awesome.css";
+@import "primeicons/primeicons.css";
+
+ body {
+  margin: 0;
+ }

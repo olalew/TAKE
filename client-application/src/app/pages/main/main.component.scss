@@ -1,0 +1,36 @@
+.menu {
+
+  label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 50px;
+  }
+
+  .ng-fa-icon {
+    font-size: 30px;
+    display: flex;
+    justify-content: flex-end;
+  }
+}
+
+.show-menu {
+  animation: 1s fadeIn;
+  animation-fill-mode: forwards;
+  width: 20%;
+}
+
+.hide-menu {
+  animation: 1s fadeIn;
+  animation-fill-mode: forwards;
+  width: 2%;
+}
+
+.settings {
+  display: flex;
+  justify-content: center;
+   .fa {
+    font-size: 30px !important;
+   }
+}

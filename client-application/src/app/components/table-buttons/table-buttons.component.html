@@ -1,0 +1,13 @@
+<div class="table-buttons-container">
+  <div class="m-3" *ngIf="showAddButton">
+    <p-button styleClass="button-width" label="Dodaj" (onClick)="onAddAction()"></p-button>
+  </div>
+  <div class="m-3" *ngIf="showEditButton">
+    <p-button styleClass="button-width" label="Edytuj" (onClick)="onEditAction()"
+      [disabled]="!isSelectedItem"></p-button>
+  </div>
+  <div class="m-3" *ngIf="showDeleteButton">
+    <p-button styleClass="button-width" label="Usuń" (onClick)="onDeleteAction()"
+      [disabled]="!isSelectedItem"></p-button>
+  </div>
+</div>

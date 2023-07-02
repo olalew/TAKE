@@ -1,0 +1,10 @@
+<p-confirmDialog #cd key="confirmDeleteDialog" styleClass="cofirm-dialog" [style]="{width: '450px'}" icon="pi pi-exclamation-circle">
+  <ng-template pTemplate="footer" class="confirm-footer">
+    <p-button icon="pi pi-check" styleClass="button-confirm-width"
+     label="Usuń" (onClick)="cd.accept()">
+    </p-button>
+    <p-button icon="pi pi-times" styleClass="button-confirm-width"
+     label="Anuluj" (onClick)="cd.reject()">
+    </p-button>
+  </ng-template>
+</p-confirmDialog>

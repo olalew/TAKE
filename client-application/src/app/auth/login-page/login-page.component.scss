@@ -1,0 +1,21 @@
+.login-page {
+  .header label {
+    font-size: 100px;
+    font-weight: bold;
+  }
+}
+
+.login-card {
+  background-color: var(--background-color-lighter);
+  border: 2px solid var(--primary-color);
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  input {
+    width: 200px;
+    margin: 20px;
+  }
+}

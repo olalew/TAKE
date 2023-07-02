@@ -1,0 +1,28 @@
+<div class="dialog-content">
+  <div class="dialog-body">
+    <form #form="ngForm" [formGroup]="clientForm" class="dialog-form">
+      <span class="p-float-label">
+        <input pInputText id="name" formControlName="name" placeholder="Imie" [(ngModel)]="client.firstName" />
+      </span>
+      <span class="p-float-label">
+        <input pInputText id="surname" formControlName="surname" placeholder="Nazwisko" [(ngModel)]="client.lastName" />
+      </span>
+      <span class="p-float-label">
+        <input pInputText id="email" formControlName="email" placeholder="Email" [(ngModel)]="client.email" />
+      </span>
+      <span class="p-float-label">
+        <p-calendar formControlName="birthDay" dateFormat="dd-mm-yy" [(ngModel)]="clientBirthDate" appendTo="body" placeholder="Data urodzenia"></p-calendar>
+      </span>
+      <span class="p-float-label">
+        <input pInputText id="phoneNumber" formControlName="phoneNumber" placeholder="Numer telefonu" [(ngModel)]="client.phoneNumber" maxlength="11"/>
+      </span>
+      <span class="p-float-label">
+        <input pInputText id="pesel" formControlName="pesel" placeholder="Pesel" [(ngModel)]="client.pesel" />
+      </span>
+    </form>
+  </div>
+  <div class="dialog-footer">
+    <p-button styleClass="button-width dialog-button-margin" [label]="edit ? 'Edytuj': 'Dodaj' " [disabled]="clientForm.invalid" (onClick)="edit ? onEditClient() : onCreateClient()"></p-button>
+    <p-button styleClass="button-width dialog-button-margin" (onClick)="onCloseDialog()">Anuluj</p-button>
+  </div>
+</div>

@@ -1,0 +1,26 @@
+<p-toast key="mainToast" position="top-right"></p-toast>
+<div class="main grid">
+  <div class="menu col-fixed" [ngClass]="!isMenuHideAnimation ? 'show-menu' : 'hide-menu'">
+    <div [ngClass]="!isMenuHideAnimation ? 'fadeinleft animation-duration-500' : 'fadeoutleft animation-duration-500'">
+      <div *ngIf="!isMenuHide; else menuHide">
+        <fa-icon [icon]="arrowLeft" (click)="onMenuHide(true)"></fa-icon>
+        <label class="m-0" for="name">TAKE</label>
+        <label class="m-0" for="name">TRAVEL</label>
+        <!-- <div class="settings p-3">
+          <i class="fa fa-user m-2" (click)="onProfileClick()"></i>
+          <i class="fa fa-bell m-2"></i>
+          <i class="fa fa-power-off m-2" (click)="onLogoff()"></i>
+        </div> -->
+        <fixtab-menu class="p-1"></fixtab-menu>
+      </div>
+    </div>
+    <ng-template #menuHide style="width: 5%">
+      <div class="fadeinleft animation-duration-500">
+        <fa-icon [icon]="arrowRight" (click)="onMenuHide(false)"></fa-icon>
+      </div>
+    </ng-template>
+  </div>
+  <div class="main-content col">
+    <router-outlet></router-outlet>
+  </div>
+</div>

@@ -1,28 +1,19 @@
 package endpoints;
 
+import javax.ejb.Stateless;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 
+import javax.ws.rs.core.MediaType;
+
+@Stateless
 @Path("ping")
 public class PingController {
 
 	@GET
+    @Produces(MediaType.TEXT_PLAIN)
 	public String ping() {
-//	    	EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("BookPu");
-//	    	EntityManager manager = entityManagerFactory.createEntityManager();
-//	    	
-//	    	EntityTransaction transaction = manager.getTransaction();
-//	    	transaction.begin();
-//	    	
-//	    	Book book = new Book();
-//	    	book.setTitle("title");
-//	    
-//	    	manager.persist(book);
-//	    	transaction.commit();
-//	    	
-//	    	manager.close();
-//	    	entityManagerFactory.close();
-//	    	
 		return "Ping Works!";
 	}
 
